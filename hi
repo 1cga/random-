@@ -1,454 +1,227 @@
-# dfs 
-graph1 = {
-    'A': set(['B', 'C']),
-    'B': set(['A', 'D', 'E']),
-    'C': set(['A', 'F']),
-    'D': set(['B']),
-    'E': set(['B', 'F']),
-    'F': set(['C', 'E'])
+#print name, age, roll no of a student
+
+using System;
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Enter the name:");
+        string name = Console.ReadLine();
+
+        Console.WriteLine("Enter the roll number:");
+        int.TryParse(Console.ReadLine(), out int roll);
+
+        Console.WriteLine("Enter the age:");
+        int.TryParse(Console.ReadLine(), out int age);
+
+        Console.WriteLine($"Student name is {name}, Roll number is {roll}, and Age is {age}");
+    }
 }
 
-def dfs(graph, node, visited):
-    if node not in visited:
-        visited.append(node)
-        for n in graph[node]:
-            dfs(graph, n, visited)
-    return visited
-
-visited = dfs(graph1, 'D', [])
-print(visited)
-
-#predicate m f p 
-# Facts: Gender and Parent relationships
-male = {"Ram", "Ravi", "Arjun", "Amit"}
-female = {"Sita", "Reena", "Maya", "Neha"}
-# parent(child, parent)
-parent = {
-    ("Ravi", "Ram"), ("Ravi", "Sita"),
-    ("Reena", "Ram"), ("Reena", "Sita"),
-    ("Arjun", "Ravi"), ("Arjun", "Maya"),
-    ("Neha", "Reena"), ("Neha", "Amit")
+#program to check week day using switch statement.
+using System;
+public class WeekDay
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Enter day number (1 to 7):");
+        int day = int.Parse(Console.ReadLine());
+        string dayName;
+        switch (day)
+        {
+            case 1:
+                dayName = "Monday";
+                break;
+            case 2:
+                dayName = "Tuesday";
+                break;
+            case 3:
+                dayName = "Wednesday";
+                break;
+            case 4:
+                dayName = "Thursday";
+                break;
+            case 5:
+                dayName = "Friday";
+                break;
+            case 6:
+                dayName = "Saturday";
+                break;
+            case 7:
+                dayName = "Sunday";
+                break;
+            default:
+                dayName = "Invalid day number!";
+                break;
+        }
+        Console.WriteLine($"Day {day} is {dayName}");
+    }
 }
 
-# Predicates and Rules
-def father(x, y):
-    return (x in male) and ((y, x) in parent)
+#.Write a program to reverse the string.
 
-def mother(x, y):
-    return (x in female) and ((y, x) in parent)
-
-def grandfather(x, y):
-    return (x in male) and any(
-        father(x, p) or mother(x, p)
-        for p, q in parent if q == x and (y, p) in parent
-    )
-
-def grandmother(x, y):
-    return (x in female) and any(
-        father(x, p) or mother(x, p)
-        for p, q in parent if q == x and (y, p) in parent
-    )
-
-def siblings(x, y):
-    return x != y and any(
-        (x, p) in parent and (y, p) in parent
-        for _, p in parent
-    )
-
-def brother(x, y):
-    return (x in male) and siblings(x, y)
-
-def sister(x, y):
-    return (x in female) and siblings(x, y)
-
-def uncle(x, y):
-    return (x in male) and any(
-        brother(x, p) for p in male | female if (y, p) in parent
-    )
-
-def aunt(x, y):
-    return (x in female) and any(
-        sister(x, p) for p in male | female if (y, p) in parent
-    )
-
-def nephew(x, y):
-    return (x in male) and any(
-        (x, p) in parent and (p, y) in parent for p, q in parent
-    )
-
-def niece(x, y):
-    return (x in female) and any(
-        (x, p) in parent and (p, y) in parent for p, q in parent
-    )
-
-def cousin(x, y):
-    return any(
-        siblings(p1, p2)
-        for (x, p1) in parent for (y, p2) in parent if p1 != p2
-    )
-
-# --- Test cases ---
-print("Father of Ravi:", [p for p in male if father(p, "Ravi")])
-print("Mother of Arjun:", [p for p in female if mother(p, "Arjun")])
-print("Siblings (Ravi, Reena):", siblings("Ravi", "Reena"))
-print("Brother of Reena:", [p for p in male if brother(p, "Reena")])
-print("Sister of Ravi:", [p for p in female if sister(p, "Ravi")])
-print("Uncle of Arjun:", [p for p in male if uncle(p, "Arjun")])
-print("Aunt of Arjun:", [p for p in female if aunt(p, "Arjun")])
-print("Cousin of Arjun:", [p for p in male | female if cousin(p, "Arjun")])
-
-#predicate
-
-# Knowledge base: dictionary of relationships
-knowledge_base = {
-    "Sachin": "Batsman",
-    "Batsman": "Cricketer",
-    "Cricketer": "Sportsperson",
-    "Sportsperson": "Human",
-    "Human": "Mammal",
-    "Mammal": "LivingBeing",
-    "Dog": "Mammal",
-    "Cat": "Mammal"
+using System;
+public class ReverseString{
+ public static void Main(string[] args){
+ Console.WriteLine("Enter a string:");
+ string str = Console.ReadLine();
+ string reversed = "";
+ for (int i = str.Length - 1; i >= 0; i--){
+ reversed += str[i];
+ }
+ Console.WriteLine($"Reversed string: {reversed}");
+ }
 }
 
-def derive_predicate(kb, entity, target):
-    """
-    Try to derive if an entity is a kind of target using transitive inference
-    """
-    visited = set()
-    to_visit = [entity]
-    while to_visit:
-        current = to_visit.pop()
-        if current == target:
-            return True
-        if current in kb and current not in visited:
-            visited.add(current)
-            to_visit.append(kb[current])
-    return False
+# reverse number
 
-# Example queries
-queries = [
-    ("Sachin", "Cricketer"),
-    ("Sachin", "Sportsperson"),
-    ("Sachin", "LivingBeing"),
-    ("Dog", "LivingBeing"),
-    ("Cat", "Sportsperson"),
-]
-
-for entity, target in queries:
-    if derive_predicate(knowledge_base, entity, target):
-        print(f"{entity} is a {target}")
-    else:
-        print(f"Cannot derive that {entity} is a {target}")
-
-#a star 
-
-import heapq
-
-def astar(graph, heuristic, start, goal):
-    # priority queue for nodes (f, node, path, g)
-    open_list = [(heuristic[start], start, [start], 0)]
-    visited = set()
-    while open_list:
-        f, node, path, g = heapq.heappop(open_list)
-        if node == goal:
-            return path
-        if node in visited:
-            continue
-        visited.add(node)
-        for neighbor, cost in graph[node].items():
-            if neighbor not in visited:
-                g_new = g + cost
-                f_new = g_new + heuristic[neighbor]
-                heapq.heappush(open_list, (f_new, neighbor, path + [neighbor], g_new))
-    return None
-
-graph = {
-    'A': {'B': 1, 'C': 3},
-    'B': {'D': 1, 'E': 5},
-    'C': {'F': 2},
-    'D': {'G': 3},
-    'E': {'G': 1},
-    'F': {'G': 2},
-    'G': {},
+using System;
+public class ReverseNumber{
+ public static void Main(string[] args)
+ {
+ Console.WriteLine("Enter a number:");
+ int num = int.Parse(Console.ReadLine());
+ int rev = 0;
+ while (num > 0)
+ {
+ int digit = num % 10;
+ rev = rev * 10 + digit;
+ num = num / 10;
+ }
+ Console.WriteLine($"Reversed number: {rev}");
+ }
 }
 
-heuristic = {
-    'A': 7, 'B': 6, 'C': 5, 'D': 4, 'E': 2, 'F': 3, 'G': 0
+#program to demonstrate all user-defined function type.
+
+using System;
+public class FunctionTypes{
+ void Greet(){
+ Console.WriteLine("Hello! Welcome to C# functions demo.");
+ }
+ void DisplaySquare(int n){
+ Console.WriteLine($"Square of {n} is {n * n}");
+ }
+ int GetNumber(){
+ Console.Write("Enter a number: ");
+ int num = int.Parse(Console.ReadLine());
+ return num;
+ }
+ int Add(int a, int b){
+ return a + b;
+ }
+ public static void Main(string[] args){
+ FunctionTypes obj = new FunctionTypes();
+ obj.Greet();
+ obj.DisplaySquare(5);
+ int x = obj.GetNumber();
+ Console.WriteLine($"You entered: {x}");
+ int sum = obj.Add(10, 20);
+ Console.WriteLine($"Sum of 10 and 20 is: {sum}");
+ }
 }
 
-# RUN A*
-path = astar(graph, heuristic, 'A', 'G')
-print("Shortest path: ", path)
+#a program for word number from input digits
 
-
-#alpha beta 
-
-#def alpha_beta(node, depth, alpha, beta, maximizing_player):
-    # If leaf node or depth 0, return the node's value
-    if depth == 0 or isinstance(node, int):
-        return node
-    if maximizing_player:
-        max_eval = float('-inf')
-        for child in node:
-            eval = alpha_beta(child, depth - 1, alpha, beta, False)
-            max_eval = max(max_eval, eval)
-            alpha = max(alpha, eval)
-            if beta <= alpha:
-                break  # Beta cut-off
-        return max_eval
-    else:
-        min_eval = float('inf')
-        for child in node:
-            eval = alpha_beta(child, depth - 1, alpha, beta, True)
-            min_eval = min(min_eval, eval)
-            beta = min(beta, eval)
-            if beta <= alpha:
-                break  # Alpha cut-off
-        return min_eval
-
-#alph abeta  
-Example tree (nested list)
-game_tree = [
-    [3, 5, 6],
-    [3, 2, 9],
-    [0, 1, 4]
-]
-
-# Run alpha-beta on the tree, starting with maximizing player
-best_value = alpha_beta(
-    game_tree,
-    depth=3,
-    alpha=float('-inf'),
-    beta=float('inf'),
-    maximizing_player=True
-)
-print("Best Value:", best_value)
-
-#number puzzle
-import tkinter as tk
-from tkinter import messagebox
-from simpleai.search import astar, SearchProblem
-
-GOAL = '12345678e'
-
-class EightPuzzleSolver(SearchProblem):
-    def __init__(self, initial):
-        self.goal = GOAL
-        super().__init__(initial)
-
-    def actions(self, state):
-        index = state.index('e')
-        moves = []
-        if index % 3 > 0: moves.append('L')
-        if index % 3 < 2: moves.append('R')
-        if index // 3 > 0: moves.append('U')
-        if index // 3 < 2: moves.append('D')
-        return moves
-
-    def result(self, state, action):
-        index = state.index('e')
-        swap = {'L': -1, 'R': 1, 'U': -3, 'D': 3}[action]
-        new_index = index + swap
-        state = list(state)
-        state[index], state[new_index] = state[new_index], state[index]
-        return ''.join(state)
-
-    def is_goal(self, state):
-        return state == self.goal
-
-    def heuristic(self, state):
-        distance = 0
-        for i, val in enumerate(state):
-            if val == 'e':
-                continue
-            goal_index = GOAL.index(val)
-            distance += abs(i // 3 - goal_index // 3) + abs(i % 3 - goal_index % 3)
-        return distance
-
-class PuzzleGUI:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("* Puzzle Solver (AI)")
-        self.board = list("7245e8361")  # You can change this to any solvable config
-        self.buttons = []
-        self.create_board()
-        tk.Button(root, text="Solve", command=self.solve).grid(row=3, column=0, columnspan=3)
-
-    def create_board(self):
-        for i in range(9):
-            btn = tk.Button(self.root, text=self.board[i] if self.board[i] != 'e' else '',
-                            font=("Arial", 20), width=4, height=2)
-            btn.grid(row=i // 3, column=i % 3)
-            self.buttons.append(btn)
-
-    def update_board(self):
-        for i in range(9):
-            self.buttons[i].config(text=self.board[i] if self.board[i] != 'e' else '')
-
-    def solve(self):
-        problem = EightPuzzleSolver(''.join(self.board))
-        result = astar(problem)
-        path = [state for action, state in result.path()]
-        self.animate_solution(path)
-
-    def animate_solution(self, path, index=0):
-        if index >= len(path):
-            messagebox.showinfo("DONE", "PUZZLE SOLVED!")
-            return
-        self.board = list(path[index])
-        self.update_board()
-        self.root.after(500, lambda: self.animate_solution(path, index + 1))
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    gui = PuzzleGUI(root)
-    root.mainloop()
-
-# water jug 
-
-capacity = (12, 8, 5)
-initial_state = (12, 0, 0)
-final_state = (6, 6, 0)
-visited = set()
-solution_path = []
-
-def get_all_states(state):
-    if state == final_state:
-        solution_path.append(state)
-        return True
-    if state in visited:
-        return False
-    visited.add(state)
-    a, b, c = state
-    jugs = [a, b, c]
-    cap = capacity
-    # Try pouring from one jug to another
-    for i in range(3):  # From jug i
-        for j in range(3):  # To jug j
-            if i != j and jugs[i] > 0 and jugs[j] < cap[j]:
-                # Calculate how much to pour
-                poured = min(jugs[i], cap[j] - jugs[j])
-                next_state = list(jugs)
-                next_state[i] -= poured
-                next_state[j] += poured
-                if get_all_states(tuple(next_state)):
-                    solution_path.append(state)
-                    return True
-    return False
-
-# Run the solver
-print("Solving 3-Jug Problem...\n")
-if get_all_states(initial_state):
-    solution_path.reverse()
-    print("Solution Path:")
-    for state in solution_path:
-        print(f"Jug A: {state[0]}L, Jug B: {state[1]}L, Jug C: {state[2]}L")
-else:
-    print("No solution found.")
-
-
-#bfs 
-graph = {
-    'A': set(['B', 'C']),
-    'B': set(['A', 'D', 'E']),
-    'C': set(['A', 'F']),
-    'D': set(['B']),
-    'E': set(['B', 'F']),
-    'F': set(['C', 'E'])
+using System;
+class Word
+{
+ static void Main()
+ {
+ string[] words = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+"nine" };
+ Console.WriteLine("Enter the number:");
+ int.TryParse(Console.ReadLine(), out int n);
+ Console.WriteLine(words[n]);
+ }
 }
 
-def bfs(start):
-    queue = [start]
-    levels = {}
-    levels[start] = 0
-    visited = set([start])
+#program to create a Namespace.
 
-    while queue:
-        node = queue.pop(0)
-        neighbours = graph[node]
-        for neighbour in neighbours:
-            if neighbour not in visited:
-                queue.append(neighbour)
-                visited.add(neighbour)
-                levels[neighbour] = levels[node] + 1
-    
-    print(levels)
-    return visited
+using Mynamespace;
+using System;
+namespace Mynamespace
+{
+ public class test2
+ {
+ public void display()
+ {
+ Console.WriteLine("Good Morning"!);
+ }
+ }
+}
+public class Test{
+ public static void Main(){
+ test2 t1 = new test2();
+ t1.display();
+ }
+}
+#WAP to handle format exception
 
-print(str(bfs('A')))
+using System;
+class exception{
+ public static void Main(){
+ try{
+ Console.WriteLine("Enter any number:");
+ int num = int.Parse(Console.ReadLine());
+ Console.WriteLine("You entered:" + num);
+ }
+ catch (FormatException exe)
+ {
+ Console.WriteLine(exe.Message);
+ Console.WriteLine("You entered a character please entered any string!");
+ }
+ }
+}
 
-def bfs_paths(graph, start, goal):
-    queue = [(start, [start])]
-    while queue:
-        (vertex, path) = queue.pop(0)
-        for next_node in graph[vertex] - set(path):
-            if next_node == goal:
-                yield path + [next_node]
-            else:
-                queue.append((next_node, path + [next_node]))
+#WAP to handle divide by zero exception.
 
-result = list(bfs_paths(graph, 'A', 'F'))
-print(result)
+using System;
+class exception{
+public static void Main(){
+ try{
+ Console.WriteLine("Enter First Number:");
+ int num1 = int.Parse(Console.ReadLine());
+ Console.WriteLine("Enter Second Number:");
+ int num2 = int.Parse(Console.ReadLine());
+ int result = num1 / num2;
+ }
+ catch (DivideByZeroException exe){
+ Console.WriteLine(exe.Message);
+ }
+ }
+}
+#WAP to handle array index out of bound exception
 
-def shortest_path(graph, start, goal):
-    try:
-        return next(bfs_paths(graph, start, goal))
-    except StopIteration:
-        return None
+using System;
+class exception{
+ public static void Main(){
+ try{
+ int[] arr = { 1, 2, 3, 4, 5 };
+ Console.WriteLine(arr[6]);
+ }
+ catch (IndexOutOfRangeException exe)
+ {
+ Console.WriteLine(exe.Message);
+ }
+ }
+}
+#WAP to demonstrate finally block and null exception
 
-result1 = shortest_path(graph, 'A', 'F')
-print(result1)
+using System;
+class exception{
+ public static void Main(){
+ try{
+ string str = null;
+ int str1 = str.Length;
+ }
+ catch (NullReferenceException exe){
+ Console.WriteLine(exe.Message);
+ }
+ finally{
+ Console.WriteLine("The Finally Block is Executed!!");
+ }
+ }
+}
 
-#n queeen 
-
-def is_safe(board, row, col, N):
-    for i in range(row):
-        if board[i][col] == 1:
-            return False
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-    for i, j in zip(range(row, -1, -1), range(col, N)):
-        if board[i][j] == 1:
-            return False
-    return True
-
-def solve_n_queens_util(board, row, N, solutions):
-    if row == N:
-        solution = []
-        for i in range(N):
-            sol_row = ""
-            for j in range(N):
-                if board[i][j] == 1:
-                    sol_row += 'Q'
-                else:
-                    sol_row += '.'
-            solution.append(sol_row)
-        solutions.append(solution)
-        return
-    for col in range(N):
-        if is_safe(board, row, col, N):
-            board[row][col] = 1
-            solve_n_queens_util(board, row + 1, N, solutions)
-            board[row][col] = 0
-
-def solve_n_queens(N):
-    board = [[0] * N for _ in range(N)]
-    solutions = []
-    solve_n_queens_util(board, 0, N, solutions)
-    return solutions
-
-def print_solutions(solutions):
-    for idx, solution in enumerate(solutions):
-        print(f"solution {idx + 1}:")
-        for row in solution:
-            print(row)
-        print()
-
-if __name__ == "__main__":
-    N = 4
-    solutions = solve_n_queens(N)
-    print(f"Found {len(solutions)} solutions for {N}-Queens problem:")
-    print_solutions(solutions)
 
