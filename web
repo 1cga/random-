@@ -1,0 +1,47 @@
+# Create a windows form to validate login page.
+
+private void button1_Click(object sender, EventArgs e)
+{
+ string user = txtuser.Text;
+ string password = txtpass.Text;
+ if (user == "wanted" && password == "72083")
+ MessageBox.Show("Login Done!");
+ else
+ MessageBox.Show("Invalid!");
+}
+
+#  Create a window form for Registration form.
+ private void btnRegister_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text;
+            string age = txtAge.Text;
+            string gender = cmbGender.Text;
+            string course = cmbCourse.Text;
+
+            if (name == "" || age == "" || gender == "" || course == "")
+            {
+                MessageBox.Show("Please fill all the details!");
+            }
+            else
+            {
+                string info = $"Name: {name}\nAge: {age}\nGender: {gender}\nCourse: {course}";
+                MessageBox.Show(info, "Registration Details");
+            }
+}
+#Create a Window form for Hit Count.
+public partial class Form1 : Form
+ {
+ int count = 0;
+ public Form1()
+ {
+ InitializeComponent();
+ }
+ private void button1_Click(object sender, EventArgs e)
+ {
+ count += 1;
+ MessageBox.Show("Total Hit Count Is :" + count);
+ }
+ }
+
+
+
