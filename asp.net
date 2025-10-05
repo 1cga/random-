@@ -1,0 +1,229 @@
+#Create a web App to validate the login form
+ In Login.aspx
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs"
+Inherits="LoginWebApp.Login" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+ <title>Login Page</title>
+</head>
+<body style="text-align:center; font-family: Arial;">
+ <form id="form1" runat="server">
+ <h2>Login Form</h2>
+ <asp:Label ID="lblUser" runat="server" Text="Username:"></asp:Label>
+ <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
+ <br /><br />
+ <asp:Label ID="lblPass" runat="server" Text="Password:"></asp:Label>
+ <asp:TextBox ID="txtPass" runat="server" TextMode="Password"></asp:TextBox>
+ <br /><br />
+ <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
+<br /><br />
+ <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+ </form>
+</body>
+</html>
+
+In Login.aspx.cs
+using System;
+namespace LoginWebApp{
+ public partial class Login : System.Web.UI.Page{
+ protected void Page_Load(object sender, EventArgs e){
+}
+protected void btnLogin_Click(object sender, EventArgs e)
+ {
+ string user = txtUser.Text;
+ string password = txtPass.Text;
+ if (user == "Surya Jaiswar" && password == "72083"){
+ lblMessage.ForeColor = System.Drawing.Color.Green;
+ lblMessage.Text = "Login Successful!";}
+ else{
+ lblMessage.ForeColor = System.Drawing.Color.Red;
+ lblMessage.Text = "Invalid Username or Password!";
+ }
+ }
+ }
+}
+#Create a web App to check whether the no is armstrong or not display the result in
+text box.
+InArmstrong.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Armstrong.aspx.cs"
+Inherits="ArmstrongWebApp.Armstrong" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+ <title>Armstrong Number Checker</title>
+</head>
+<body style="text-align:center; font-family: Arial; margin-top:50px;">
+ <form id="form1" runat="server">
+ <h2>Check Armstrong Number</h2>
+ <asp:Label ID="lblNumber" runat="server" Text="Enter Number:"></asp:Label>
+ <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+ <br /><br />
+ <asp:Button ID="btnCheck" runat="server" Text="Check" OnClick="btnCheck_Click"
+/>
+ <br /><br />
+ <asp:TextBox ID="txtResult" runat="server" ReadOnly="true"
+Width="250px"></asp:TextBox>
+ </form>
+</body>
+</html>
+
+In ArmStrong.aspx.cs
+using System;
+namespace ArmstrongWebApp{
+public partial class Armstrong : System.Web.UI.Page{
+ protected void Page_Load(object sender, EventArgs e){
+ }
+protected void btnCheck_Click(object sender, EventArgs e){
+ int number, sum = 0;
+ if (int.TryParse(txtNumber.Text, out number)){
+ int temp = number;
+ int digits = number.ToString().Length;
+ while (temp > 0){
+ int rem = temp % 10;
+ sum += (int)Math.Pow(rem, digits);
+ temp /= 10;
+ }
+ if (sum == number)
+ txtResult.Text = number + " is an Armstrong Number";
+ else
+ txtResult.Text = number + " is NOT an Armstrong Number";
+ }
+ else{
+ txtResult.Text = "Please enter a valid number!";
+ }
+ }
+ }
+}
+
+#Create a webpage to reverse the string & display it into Javascript code
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reverse String Webpage</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Reverse String Webpage</h2>
+    <input type="text" id="inputString" placeholder="Enter a string" />
+    <button onclick="reverseString()">Reverse</button>
+    <div id="result"></div>
+
+    <script>
+        function reverseString() {
+            let str = document.getElementById('inputString').value;
+            let reversed = str.split('').reverse().join('');
+            document.getElementById('result').innerText = "Reversed String: " + reversed;
+        }
+    </script>
+</body>
+</html>
+
+#Create a webpage to demonstrate prime no from 1 to 50.
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Prime Numbers from 1 to 50</title>
+ <style>
+ body {
+ font-family: Arial;
+ text-align: center;
+ margin-top: 50px;
+ }
+ #result {
+ margin-top: 20px;
+ font-weight: bold;
+ color: darkblue;
+ }
+ button {
+ padding: 10px 20px;
+ font-size: 16px;
+ }
+ </style>
+</head>
+<body>
+ <h2>Prime Numbers from 1 to 50</h2>
+ <button onclick="displayPrimes()">Show Primes</button>
+ <div id="result"></div>
+
+ <script>
+ function displayPrimes() {
+     let primes = [];
+     for (let i = 2; i <= 50; i++) {
+         let isPrime = true;
+         for (let j = 2; j <= Math.sqrt(i); j++) {
+             if (i % j === 0) {
+                 isPrime = false;
+                 break;
+             }
+         }
+         if (isPrime) primes.push(i);
+     }
+     document.getElementById('result').innerHTML = "Prime Numbers:<br>" + primes.join("<br>");
+ }
+ </script>
+</body>
+</html>
+#Create a webpage to demonstrate post back.
+In post.aspx
+In post.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="post.aspx.cs"
+Inherits="WebApplication7.post" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+ <title>PostBack Demo</title>
+</head>
+<body style="text-align:center; font-family: Arial; margin-top:50px;">
+ <form id="form1" runat="server">
+ <asp:TextBox ID="TextBox1" runat="server" Height="25"
+AutoPostBack="True"></asp:TextBox>
+ <asp:Button ID="Button1" runat="server" Text="Click"
+ ForeColor="White" BackColor="DarkSlateGray"
+ OnClick="Button1_Click" Height="30" Width="50" BorderStyle="Groove" />
+ <br /><br />
+ <asp:Label ID="Label1" runat="server" ForeColor="Green"></asp:Label>
+ </form>
+</body>
+</html>
+In post.aspx.cs
+using System;
+using System.Web.UI;
+
+namespace WebApplication7
+{
+    public partial class post : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Label1.Text = "IsPostBack: " + IsPostBack + "<br/>";
+            if (IsPostBack)
+            {
+                Label1.Text += "TextBox Value: " + TextBox1.Text;
+            }
+        }
+    }
+}
